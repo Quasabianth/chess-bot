@@ -30,6 +30,20 @@ class Points:
     def get_figures(self) -> dict[str, list[Figure.Figure]]:
         return {'w': Points.get_white(self)} | {'b': Points.get_black(self)}
 
-    def possible_move(self):
-        pass
-    
+    def possible_move_pawn(self, pawn: Figure.Pawn) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        if pawn.color == 'w':
+            if self.points[pawn.pos_x][pawn.pos_y + 1].figure is None:
+                moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 1))
+                if self.points[pawn.pos_x][pawn.pos_y + 2].figure is None:
+                    moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 2))
+            if 1 <= pawn.pos_x <= 7:
+                if self.points[pawn.pos_x + 1][pawn.pos_y + 1] is not None:
+                    if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure.color != pawn.color:
+                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y + 1))
+            if 2 <= pawn.pos_y <= 8:
+                if self.points[pawn.pos_x - 1][pawn.pos_y + 1] is not None:
+                    if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure.color != pawn.color:
+                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1))                
+        return set(moves)
+
