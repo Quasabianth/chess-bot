@@ -35,8 +35,9 @@ class Points:
         if pawn.color == 'w':
             if self.points[pawn.pos_x][pawn.pos_y + 1].figure is None:
                 moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 1))
-                if self.points[pawn.pos_x][pawn.pos_y + 2].figure is None:
-                    moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 2))
+                if pawn.pos_y == 2:
+                    if self.points[pawn.pos_x][pawn.pos_y + 2].figure is None:
+                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 2))
             if 1 <= pawn.pos_x <= 7:
                 if self.points[pawn.pos_x + 1][pawn.pos_y + 1] is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure.color != pawn.color:
@@ -44,6 +45,21 @@ class Points:
             if 2 <= pawn.pos_y <= 8:
                 if self.points[pawn.pos_x - 1][pawn.pos_y + 1] is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure.color != pawn.color:
-                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1))                
+                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1))
+        elif pawn.color == 'b':
+            if self.points[pawn.pos_x][pawn.pos_y - 1].figure is None:
+                moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 1))
+                if pawn.pos_y == 7:
+                    if self.points[pawn.pos_x][pawn.pos_y - 2].figure is None:
+                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 2))
+            if 1 <= pawn.pos_x <= 7:
+                if self.points[pawn.pos_x + 1][pawn.pos_y - 1] is not None:
+                    if self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure.color != pawn.color:
+                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y - 1))
+            if 2 <= pawn.pos_y <= 8:
+                if self.points[pawn.pos_x - 1][pawn.pos_y - 1] is not None:
+                    if self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure.color != pawn.color:
+                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y - 1))
+        else:
+            raise NotImplemented
         return set(moves)
-
