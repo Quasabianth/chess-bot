@@ -12,8 +12,9 @@ class Points:
         for i in range(1, 9):
             for j in range(1, 9):
                 cand = self.points[i][j]
-                if cand.figure.color == 'w':
-                    figures.append(cand.figure)
+                if cand.figure:
+                    if cand.figure.color == 'w':
+                        figures.append(cand.figure)
         return figures
 
     def get_black(self) -> list[Figure.Figure]:
@@ -21,8 +22,9 @@ class Points:
         for i in range(1, 9):
             for j in range(1, 9):
                 cand = self.points[i][j]
-                if cand.figure.color == 'b':
-                    figures.append(cand.figure)
+                if cand.figure:
+                    if cand.figure.color == 'b':
+                        figures.append(cand.figure)
         return figures
 
     def get_figures(self) -> dict[str, list[Figure.Figure]]:
