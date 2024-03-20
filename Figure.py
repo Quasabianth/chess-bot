@@ -10,7 +10,7 @@ class Pawn(Figure):
         Figure.__init__(self, color, pos_x, pos_y)
         self.identifier = "Pawn"
 
-    def move(self) -> list[tuple[int]]:
+    def move(self) -> list[tuple[int, int, int, int]]:
         moves = list()
         assert self.pos_y != 1
         assert self.pos_y != 8
@@ -37,6 +37,14 @@ class King(Figure):
     def __init__(self, color: str, pos_x: int, pos_y: int):
         Figure.__init__(self, color, pos_x, pos_y)
         self.identifier = "King"
+    
+    def move(self) -> list[tuple[int, int, int, int]]:
+        moves = [(self.pos_x, self.pos_y, self.pos_x + dx, self.pos_y + dy) 
+                 for dx in [-1, 0, 1]
+                 if 1 <= self.pos_x + dx <= 8
+                 for dy in [-1, 0, 1]
+                 if 1 <= self.pos_y + dy <= 8]
+        return moves
 
 
 class Knight(Figure):
