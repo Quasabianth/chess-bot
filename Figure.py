@@ -10,6 +10,28 @@ class Pawn(Figure):
         Figure.__init__(self, color, pos_x, pos_y)
         self.identifier = "Pawn"
 
+    def move(self) -> list[tuple[int]]:
+        moves = list()
+        assert self.pos_y != 1
+        assert self.pos_y != 8
+        if self.color == 'w':
+            moves += (self.pos_x, self.pos_y, self.pos_x, self.pos_y + 1)
+            if self.pos_y == 2:
+                moves += (self.pos_x, self.pos_y, self.pos_x, self.pos_y + 2)
+            if 1 <= self.pos_x <= 7:
+                moves += (self.pos_x, self.pos_y, self.pos_x + 1, self.pos_y + 1)
+            if 2 <= self.pos_x <= 7:
+                moves += (self.pos_x, self.pos_y, self.pos_x - 1, self.pos_y + 1)
+        elif self.color == 'b':
+            moves += (self.pos_x, self.pos_y, self.pos_x, self.pos_y - 1)
+            if self.pos_y == 7:
+                moves += (self.pos_x, self.pos_y, self.pos_x, self.pos_y - 2)
+            if 1 <= self.pos_x <= 7:
+                moves += (self.pos_x, self.pos_y, self.pos_x + 1, self.pos_y - 1)
+            if 2 <= self.pos_x <= 7:
+                moves += (self.pos_x, self.pos_y, self.pos_x - 1, self.pos_y - 1)
+        return moves
+
 
 class King(Figure):
     def __init__(self, color: str, pos_x: int, pos_y: int):
