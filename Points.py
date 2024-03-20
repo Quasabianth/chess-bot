@@ -30,5 +30,6 @@ class Points:
     def get_figures(self) -> dict[str, list[Figure.Figure]]:
         return {'w': Points.get_white(self)} | {'b': Points.get_black(self)}
 
-    def move(self):
+    def possible_move(self):
         pass
+    
