@@ -63,3 +63,17 @@ class Points:
         else:
             raise NotImplemented
         return set(moves)
+
+    def possible_move_king(self, king: Figure.King) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        for i in [-1, 0, 1]:
+            for j in [-1, 0, 1]:
+                if i == 0 and j == 0:
+                    continue
+                if self.points[king.pos_x + i][king.pos_y + j] is not None:
+                    if self.points[king.pos_x + i][king.pos_y + j].figure.color != king.color:
+                        moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
+                else:
+                    moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
+        return set(moves)
+
