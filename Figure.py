@@ -6,6 +6,7 @@ class Figure:
         self.color = color
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.identifier = "Figure"
 
 # класс пешки
 
