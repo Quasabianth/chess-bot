@@ -1,12 +1,16 @@
 import Figure
 import Point
 
+# класс поля (клеток)
+
 
 class Points:
     def __init__(self, points: list[list[Point.Point]], order: str):
         self.points = points
         self.order = order
 
+    # получить все белые фигуры    
+    
     def get_white(self) -> list[Figure.Figure]:
         figures = []
         for i in range(1, 9):
@@ -16,7 +20,9 @@ class Points:
                     if cand.figure.color == 'w':
                         figures.append(cand.figure)
         return figures
-
+    
+     # получить все черные фигуры
+    
     def get_black(self) -> list[Figure.Figure]:
         figures = []
         for i in range(1, 9):
@@ -26,10 +32,14 @@ class Points:
                     if cand.figure.color == 'b':
                         figures.append(cand.figure)
         return figures
-
-    def get_figures(self) -> dict[str, list[Figure.Figure]]:
-        return {'w': Points.get_white(self)} | {'b': Points.get_black(self)}
-
+    
+    # получить все фигуры
+    
+    def get_figures(self) -> list[Figure.Figure]:
+        return self.get_white() + self.get_black()
+    
+    # возможные ходы пешки
+    
     def possible_move_pawn(self, pawn: Figure.Pawn) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         if pawn.color == 'w':
@@ -63,7 +73,9 @@ class Points:
         else:
             raise NotImplemented
         return set(moves)
-
+    
+    # возможные ходы короля
+    
     def possible_move_king(self, king: Figure.King) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         for i in [-1, 0, 1]:
@@ -78,7 +90,9 @@ class Points:
                 else:
                     moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
         return set(moves)
-
+    
+    # возможные ходы коня
+    
     def possible_move_knight(self, knight: Figure.Knight) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         xy: list[tuple[int, int]] = [(2, 1), [1, 2], (2, -1), (1, -2), (-2, -1), (-1, -2), (-1, 2), (-2, 1)]
