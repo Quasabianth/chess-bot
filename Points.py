@@ -78,3 +78,16 @@ class Points:
                 else:
                     moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
         return set(moves)
+
+    def possible_move_knight(self, knight: Figure.Knight) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        xy: list[tuple[int, int]] = [(2, 1), [1, 2], (2, -1), (1, -2), (-2, -1), (-1, -2), (-1, 2), (-2, 1)]
+        for i, j in xy:
+            if not (1 <= knight.pos_x + i <= 8) or not (1 <= knight.pos_y + j <= 8):
+                continue
+            if self.points[knight.pos_x + i][knight.pos_y + j] is not None:
+                if self.points[knight.pos_x + i][knight.pos_y + j].figure.color != knight.color:
+                    moves.append((knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j))
+            else:
+                moves.append((knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j))
+        return set(moves)
