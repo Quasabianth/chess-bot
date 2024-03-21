@@ -68,6 +68,8 @@ class Points:
         moves = list()
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
+                if not (1 <= king.pos_x + i <= 8) or not (1 <= king.pos_y + j <= 8):
+                    continue
                 if i == 0 and j == 0:
                     continue
                 if self.points[king.pos_x + i][king.pos_y + j] is not None:
@@ -76,4 +78,3 @@ class Points:
                 else:
                     moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
         return set(moves)
-
