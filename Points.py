@@ -37,15 +37,15 @@ class Points:
 
     def get_figures(self) -> list[Figure.Figure]:
         return self.get_white() + self.get_black()
-    
+
     # получить белого короля
-    
+
     def get_white_king(self) -> list[Figure.Figure]:
         return [figure for figure in self.get_white()
                 if figure is Figure.King]
-    
+
     # получить черного короля
-    
+
     def get_black_king(self) -> list[Figure.Figure]:
         return [figure for figure in self.get_black()
                 if figure is Figure.King]
@@ -205,3 +205,29 @@ class Points:
                 case _:
                     raise NotImplemented
         return set(moves)
+
+    # функция, которая передвигает фигуры
+    
+    def move_piece(self, move: tuple[str, int, int, int, int], color) -> None:
+        identifier, from_x, from_y, to_x, to_y = move
+        if identifier == "Pawn":
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
+        elif identifier == "King":
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.King(color, to_x, to_y)
+        elif identifier == "Knight":
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.Knight(color, to_x, to_y)
+        elif identifier == "Bishop":
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.Bishop(color, to_x, to_y)
+        elif identifier == "Rook":
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.Rook(color, to_x, to_y)
+        elif identifier == "Queen":
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.Queen(color, to_x, to_y)
+        else:
+            raise NotImplemented
+
