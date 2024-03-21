@@ -1,8 +1,13 @@
+# класс фигур
+
+
 class Figure:
     def __init__(self, color: str, pos_x: int, pos_y: int):
         self.color = color
         self.pos_x = pos_x
         self.pos_y = pos_y
+
+# класс пешки
 
 
 class Pawn(Figure):
@@ -11,7 +16,7 @@ class Pawn(Figure):
         self.identifier = "Pawn"
 
     def move(self) -> set[tuple[int, int, int, int]]:
-        moves = [(self.pos_x, self.pos_y, self.pos_x, self.pos_y)]
+        moves = list()
         assert self.pos_y != 1
         assert self.pos_y != 8
         if self.color == 'w':
@@ -32,6 +37,8 @@ class Pawn(Figure):
                 moves += (self.pos_x, self.pos_y, self.pos_x - 1, self.pos_y - 1)
         return set(moves)
 
+# класс короля
+
 
 class King(Figure):
     def __init__(self, color: str, pos_x: int, pos_y: int):
@@ -47,6 +54,9 @@ class King(Figure):
         return set(moves)
 
 
+# класс коня
+
+
 class Knight(Figure):
     def __init__(self, color: str, pos_x: int, pos_y: int):
         Figure.__init__(self, color, pos_x, pos_y)
@@ -60,6 +70,8 @@ class Knight(Figure):
                  if 1 <= self.pos_y + dy <= 8]
         return set(moves)
 
+# класс слона
+
 
 class Bishop(Figure):
     def __init__(self, color: str, pos_x: int, pos_y: int):
@@ -67,22 +79,24 @@ class Bishop(Figure):
         self.identifier = "Bishop"
 
     def move(self) -> set[tuple[int, int, int, int]]:
-        moves = [(self.pos_x, self.pos_y, self.pos_x + d, self.pos_y + d) 
+        moves = [(self.pos_x, self.pos_y, self.pos_x + d, self.pos_y + d)
                  for d in range(-8, 9)
                  if 1 <= self.pos_x + d <= 8
                  if 1 <= self.pos_y + d <= 8]
-        moves += [(self.pos_x, self.pos_y, self.pos_x + d, self.pos_y - d) 
+        moves += [(self.pos_x, self.pos_y, self.pos_x + d, self.pos_y - d)
                   for d in range(-8, 9)
                   if 1 <= self.pos_x + d <= 8
                   if 1 <= self.pos_y - d <= 8]
         return set(moves)
+
+# класс ладьи
 
 
 class Rook(Figure):
     def __init__(self, color: str, pos_x: int, pos_y: int):
         Figure.__init__(self, color, pos_x, pos_y)
         self.identifier = "Rook"
-    
+
     def move(self) -> set[tuple[int, int, int, int]]:
         moves = [(self.pos_x, self.pos_y, self.pos_x + dx, self.pos_y)
                  for dx in range(-8, 9)
@@ -92,12 +106,14 @@ class Rook(Figure):
                   if 1 <= self.pos_y + dy <= 8]
         return set(moves)
 
+# класс ферзя
+
 
 class Queen(Figure):
     def __init__(self, color: str, pos_x: int, pos_y: int):
         Figure.__init__(self, color, pos_x, pos_y)
         self.identifier = "Queen"
-    
+
     def move(self) -> set[tuple[int, int, int, int]]:
         moves = [(self.pos_x, self.pos_y, self.pos_x + d, self.pos_y + d)
                  for d in range(-8, 9)
