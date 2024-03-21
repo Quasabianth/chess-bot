@@ -37,6 +37,18 @@ class Points:
 
     def get_figures(self) -> list[Figure.Figure]:
         return self.get_white() + self.get_black()
+    
+    # получить белого короля
+    
+    def get_white_king(self) -> list[Figure.Figure]:
+        return [figure for figure in self.get_white()
+                if figure is Figure.King]
+    
+    # получить черного короля
+    
+    def get_black_king(self) -> list[Figure.Figure]:
+        return [figure for figure in self.get_black()
+                if figure is Figure.King]
 
     # возможные ходы пешки
 
@@ -130,7 +142,26 @@ class Points:
     # проверка на шах
 
     def is_check(self, order: str) -> bool:
-        pass
+        flag = False
+        if order == 'w':
+            king = self.get_white_king()[0]
+            pos_x, pos_y = king.pos_x, king.pos_y
+            for cand in self.move_black():
+                x, y = cand[3], cand[4]
+                if pos_x == x and pos_y == y:
+                    flag = True
+                    break
+        elif order == 'b':
+            king = self.get_black_king()[0]
+            pos_x, pos_y = king.pos_x, king.pos_y
+            for cand in self.move_white():
+                x, y = cand[3], cand[4]
+                if pos_x == x and pos_y == y:
+                    flag = True
+                    break
+        else:
+            raise NotImplemented
+        return flag
 
     # возможные ходы белых без учета шахов
     def move_white(self) -> set[tuple[str, int, int, int, int]]:
