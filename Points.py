@@ -9,8 +9,8 @@ class Points:
         self.points = points
         self.order = order
 
-    # получить все белые фигуры    
-    
+    # получить все белые фигуры
+
     def get_white(self) -> list[Figure.Figure]:
         figures = []
         for i in range(1, 9):
@@ -20,9 +20,9 @@ class Points:
                     if cand.figure.color == 'w':
                         figures.append(cand.figure)
         return figures
-    
+
      # получить все черные фигуры
-    
+
     def get_black(self) -> list[Figure.Figure]:
         figures = []
         for i in range(1, 9):
@@ -32,14 +32,14 @@ class Points:
                     if cand.figure.color == 'b':
                         figures.append(cand.figure)
         return figures
-    
+
     # получить все фигуры
-    
+
     def get_figures(self) -> list[Figure.Figure]:
         return self.get_white() + self.get_black()
-    
+
     # возможные ходы пешки
-    
+
     def possible_move_pawn(self, pawn: Figure.Pawn) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         if pawn.color == 'w':
@@ -73,9 +73,9 @@ class Points:
         else:
             raise NotImplemented
         return set(moves)
-    
+
     # возможные ходы короля
-    
+
     def possible_move_king(self, king: Figure.King) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         for i in [-1, 0, 1]:
@@ -90,9 +90,9 @@ class Points:
                 else:
                     moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
         return set(moves)
-    
+
     # возможные ходы коня
-    
+
     def possible_move_knight(self, knight: Figure.Knight) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         xy: list[tuple[int, int]] = [(2, 1), [1, 2], (2, -1), (1, -2), (-2, -1), (-1, -2), (-1, 2), (-2, 1)]
@@ -105,3 +105,34 @@ class Points:
             else:
                 moves.append((knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j))
         return set(moves)
+    
+    # возможные ходы слона
+    
+    def possible_move_bishop(self, bishop: Figure.Bishop) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        # код Богдана
+        return set(moves)
+    
+    # возможные ходы ладьи
+    
+    def possible_move_rook(self, rook: Figure.Rook) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        # код Богдана
+        return set(moves)
+    
+    # возможные ходы ферзя
+    
+    def possible_move_queen(self, rook: Figure.Rook) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        # код Богдана
+        return set(moves)
+    
+    # проверка на шах
+    
+    def is_check(self, order: str) -> bool:
+        pass
+    
+    # возможные ходы белых
+    def possible_move_white(self) -> set[tuple[str, int, int, int, int]]:
+        pass
+        
