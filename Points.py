@@ -40,7 +40,7 @@ class Points:
 
     # возможные ходы пешки
 
-    def possible_move_pawn(self, pawn: Figure.Pawn) -> set[tuple[str, int, int, int, int]]:
+    def possible_move_pawn(self, pawn: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         if pawn.color == 'w':
             if self.points[pawn.pos_x][pawn.pos_y + 1].figure is None:
@@ -76,7 +76,7 @@ class Points:
 
     # возможные ходы короля
 
-    def possible_move_king(self, king: Figure.King) -> set[tuple[str, int, int, int, int]]:
+    def possible_move_king(self, king: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
@@ -93,7 +93,7 @@ class Points:
 
     # возможные ходы коня
 
-    def possible_move_knight(self, knight: Figure.Knight) -> set[tuple[str, int, int, int, int]]:
+    def possible_move_knight(self, knight: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         xy: list[tuple[int, int]] = [(2, 1), [1, 2], (2, -1), (1, -2), (-2, -1), (-1, -2), (-1, 2), (-2, 1)]
         for i, j in xy:
@@ -108,21 +108,21 @@ class Points:
 
     # возможные ходы слона
 
-    def possible_move_bishop(self, bishop: Figure.Bishop) -> set[tuple[str, int, int, int, int]]:
+    def possible_move_bishop(self, bishop: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         # код Богдана
         return set(moves)
 
     # возможные ходы ладьи
 
-    def possible_move_rook(self, rook: Figure.Rook) -> set[tuple[str, int, int, int, int]]:
+    def possible_move_rook(self, rook: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         # код Богдана
         return set(moves)
 
     # возможные ходы ферзя
 
-    def possible_move_queen(self, rook: Figure.Rook) -> set[tuple[str, int, int, int, int]]:
+    def possible_move_queen(self, queen: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         # код Богдана
         return set(moves)
@@ -135,8 +135,8 @@ class Points:
     # возможные ходы белых
     def possible_move_white(self) -> set[tuple[str, int, int, int, int]]:
         pass
-    
+
     # возможные ходы черных
-    
+
     def possible_move_black(self) -> set[tuple[str, int, int, int, int]]:
         pass
