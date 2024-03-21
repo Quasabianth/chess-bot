@@ -132,11 +132,45 @@ class Points:
     def is_check(self, order: str) -> bool:
         pass
 
-    # возможные ходы белых
-    def possible_move_white(self) -> set[tuple[str, int, int, int, int]]:
-        pass
+    # возможные ходы белых без учета шахов
+    def move_white(self) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        for figure in self.get_white():
+            match figure:
+                case Figure.Pawn:
+                    moves += self.possible_move_pawn(figure)
+                case Figure.King:
+                    moves += self.possible_move_king(figure)
+                case Figure.Knight:
+                    moves += self.possible_move_knight(figure)
+                case Figure.Bishop:
+                    moves += self.possible_move_bishop(figure)
+                case Figure.Rook:
+                    moves += self.possible_move_rook(figure)
+                case Figure.Queen:
+                    moves += self.possible_move_queen(figure)
+                case _:
+                    raise NotImplemented
+        return set(moves)
 
-    # возможные ходы черных
+    # возможные ходы черных без учета шахов
 
-    def possible_move_black(self) -> set[tuple[str, int, int, int, int]]:
-        pass
+    def move_black(self) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        for figure in self.get_black():
+            match figure:
+                case Figure.Pawn:
+                    moves += self.possible_move_pawn(figure)
+                case Figure.King:
+                    moves += self.possible_move_king(figure)
+                case Figure.Knight:
+                    moves += self.possible_move_knight(figure)
+                case Figure.Bishop:
+                    moves += self.possible_move_bishop(figure)
+                case Figure.Rook:
+                    moves += self.possible_move_rook(figure)
+                case Figure.Queen:
+                    moves += self.possible_move_queen(figure)
+                case _:
+                    raise NotImplemented
+        return set(moves)
