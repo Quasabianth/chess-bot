@@ -105,34 +105,38 @@ class Points:
             else:
                 moves.append((knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j))
         return set(moves)
-    
+
     # возможные ходы слона
-    
+
     def possible_move_bishop(self, bishop: Figure.Bishop) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         # код Богдана
         return set(moves)
-    
+
     # возможные ходы ладьи
-    
+
     def possible_move_rook(self, rook: Figure.Rook) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         # код Богдана
         return set(moves)
-    
+
     # возможные ходы ферзя
-    
+
     def possible_move_queen(self, rook: Figure.Rook) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         # код Богдана
         return set(moves)
-    
+
     # проверка на шах
-    
+
     def is_check(self, order: str) -> bool:
         pass
-    
+
     # возможные ходы белых
     def possible_move_white(self) -> set[tuple[str, int, int, int, int]]:
         pass
-        
+    
+    # возможные ходы черных
+    
+    def possible_move_black(self) -> set[tuple[str, int, int, int, int]]:
+        pass
