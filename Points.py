@@ -64,7 +64,7 @@ class Points:
                 if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y + 1))
-            if 1 <= pawn.pos_y <= 7:
+            if 1 <= pawn.pos_x <= 7:
                 if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1))
@@ -74,11 +74,11 @@ class Points:
                 if pawn.pos_y == 6:
                     if self.points[pawn.pos_x][pawn.pos_y - 2].figure is None:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 2))
-            if 0 <= pawn.pos_x <= 6:
+            if 0 <= pawn.pos_x <= 7:
                 if self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y - 1))
-            if 1 <= pawn.pos_y <= 7:
+            if 1 <= pawn.pos_x <= 7:
                 if self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y - 1))
