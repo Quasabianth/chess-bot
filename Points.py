@@ -167,7 +167,7 @@ class Points:
     def move_white(self) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         for figure in self.get_white():
-            match figure:
+            match type(figure):
                 case Figure.Pawn:
                     moves += self.possible_move_pawn(figure)
                 case Figure.King:
@@ -189,7 +189,7 @@ class Points:
     def move_black(self) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         for figure in self.get_black():
-            match figure:
+            match type(figure):
                 case Figure.Pawn:
                     moves += self.possible_move_pawn(figure)
                 case Figure.King:
