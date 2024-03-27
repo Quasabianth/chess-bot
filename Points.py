@@ -61,11 +61,11 @@ class Points:
                     if type(self.points[pawn.pos_x][pawn.pos_y + 2].figure) is None:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 2))
             if 0 <= pawn.pos_x <= 6:
-                if type(self.points[pawn.pos_x + 1][pawn.pos_y + 1]) is not None:
+                if type(self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure) is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y + 1))
             if 1 <= pawn.pos_y <= 7:
-                if type(self.points[pawn.pos_x - 1][pawn.pos_y + 1]) is not None:
+                if type(self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure) is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1))
         elif pawn.color == 'b':
@@ -75,11 +75,11 @@ class Points:
                     if type(self.points[pawn.pos_x][pawn.pos_y - 2].figure) is None:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 2))
             if 0 <= pawn.pos_x <= 6:
-                if type(self.points[pawn.pos_x + 1][pawn.pos_y - 1]) is not None:
+                if type(self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure) is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y - 1))
             if 1 <= pawn.pos_y <= 7:
-                if type(self.points[pawn.pos_x - 1][pawn.pos_y - 1]) is not None:
+                if type(self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure) is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y - 1))
         else:
@@ -96,7 +96,7 @@ class Points:
                     continue
                 if i == 0 and j == 0:
                     continue
-                if type(self.points[king.pos_x + i][king.pos_y + j]) is not None:
+                if type(self.points[king.pos_x + i][king.pos_y + j].figure) is not None:
                     if self.points[king.pos_x + i][king.pos_y + j].figure.color != king.color:
                         moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
                 else:
@@ -111,7 +111,7 @@ class Points:
         for i, j in xy:
             if not (0 <= knight.pos_x + i <= 7) or not (0 <= knight.pos_y + j <= 7):
                 continue
-            if type(self.points[knight.pos_x + i][knight.pos_y + j]) is not None:
+            if type(self.points[knight.pos_x + i][knight.pos_y + j].figure) is not None:
                 if self.points[knight.pos_x + i][knight.pos_y + j].figure.color != knight.color:
                     moves.append((knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j))
             else:
