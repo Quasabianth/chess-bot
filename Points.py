@@ -13,8 +13,8 @@ class Points:
 
     def get_white(self) -> list[Figure.Figure]:
         figures = []
-        for i in range(1, 9):
-            for j in range(1, 9):
+        for i in range(0, 8):
+            for j in range(0, 8):
                 cand = self.points[i][j]
                 if cand.figure:
                     if cand.figure.color == 'w':
@@ -25,8 +25,8 @@ class Points:
 
     def get_black(self) -> list[Figure.Figure]:
         figures = []
-        for i in range(1, 9):
-            for j in range(1, 9):
+        for i in range(0, 8):
+            for j in range(0, 8):
                 cand = self.points[i][j]
                 if cand.figure:
                     if cand.figure.color == 'b':
@@ -57,28 +57,28 @@ class Points:
         if pawn.color == 'w':
             if self.points[pawn.pos_x][pawn.pos_y + 1].figure is None:
                 moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 1))
-                if pawn.pos_y == 2:
+                if pawn.pos_y == 1:
                     if self.points[pawn.pos_x][pawn.pos_y + 2].figure is None:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 2))
-            if 1 <= pawn.pos_x <= 7:
+            if 0 <= pawn.pos_x <= 6:
                 if self.points[pawn.pos_x + 1][pawn.pos_y + 1] is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y + 1))
-            if 2 <= pawn.pos_y <= 8:
+            if 1 <= pawn.pos_y <= 7:
                 if self.points[pawn.pos_x - 1][pawn.pos_y + 1] is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1))
         elif pawn.color == 'b':
             if self.points[pawn.pos_x][pawn.pos_y - 1].figure is None:
                 moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 1))
-                if pawn.pos_y == 7:
+                if pawn.pos_y == 6:
                     if self.points[pawn.pos_x][pawn.pos_y - 2].figure is None:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 2))
-            if 1 <= pawn.pos_x <= 7:
+            if 0 <= pawn.pos_x <= 6:
                 if self.points[pawn.pos_x + 1][pawn.pos_y - 1] is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y - 1))
-            if 2 <= pawn.pos_y <= 8:
+            if 1 <= pawn.pos_y <= 7:
                 if self.points[pawn.pos_x - 1][pawn.pos_y - 1] is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure.color != pawn.color:
                         moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y - 1))
@@ -92,7 +92,7 @@ class Points:
         moves = list()
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                if not (1 <= king.pos_x + i <= 8) or not (1 <= king.pos_y + j <= 8):
+                if not (0 <= king.pos_x + i <= 7) or not (0 <= king.pos_y + j <= 7):
                     continue
                 if i == 0 and j == 0:
                     continue
@@ -109,7 +109,7 @@ class Points:
         moves = list()
         xy: list[tuple[int, int]] = [(2, 1), [1, 2], (2, -1), (1, -2), (-2, -1), (-1, -2), (-1, 2), (-2, 1)]
         for i, j in xy:
-            if not (1 <= knight.pos_x + i <= 8) or not (1 <= knight.pos_y + j <= 8):
+            if not (0 <= knight.pos_x + i <= 7) or not (0 <= knight.pos_y + j <= 7):
                 continue
             if self.points[knight.pos_x + i][knight.pos_y + j] is not None:
                 if self.points[knight.pos_x + i][knight.pos_y + j].figure.color != knight.color:
@@ -243,7 +243,7 @@ class Points:
         return set(possible_moves)
 
     # функия возможных ходов с учетом шахов
-    
+
     def possible_moves_black(self) -> set[tuple[str, int, int, int, int]]:
         moves = self.move_black()
         possible_moves = list()
