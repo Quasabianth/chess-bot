@@ -42,13 +42,13 @@ class Points:
 
     def get_white_king(self) -> list[Figure.Figure]:
         return [figure for figure in self.get_white()
-                if figure is Figure.King]
+                if type(figure) is Figure.King]
 
     # получить черного короля
 
     def get_black_king(self) -> list[Figure.Figure]:
         return [figure for figure in self.get_black()
-                if figure is Figure.King]
+                if type(figure) is Figure.King]
 
     # возможные ходы пешки
 
