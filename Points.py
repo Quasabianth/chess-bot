@@ -122,21 +122,48 @@ class Points:
 
     def possible_move_bishop(self, bishop: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
-        # код Богдана
+        xy: list[tuple[int, int]] = [(-1, -1), (1, 1), (-1, 1), (1, -1)]
+        for i, j in xy:
+            g = 0
+            while 0 <= bishop.pos_x + i * g <= 7 and 0 <= bishop.pos_y + j * g <= 7:
+                if self[bishop.pos_x + i * g][bishop.pos_y + i * g].figure is not None:
+                    if self[bishop.pos_x + i * g][bishop.pos_y + i * g].figure.color == bishop.color:
+                        moves.append((bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g))
+                    break
+                moves.append((bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g))
+                g += 1
         return set(moves)
 
     # возможные ходы ладьи
 
     def possible_move_rook(self, rook: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
-        # код Богдана
+        xy: list[tuple[int, int]] = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        for i, j in xy:
+            g = 0
+            while 0 <= rook.pos_x + i * g <= 7 and 0 <= rook.pos_y + j * g <= 7:
+                if self[rook.pos_x + i * g][rook.pos_y + i * g].figure is not None:
+                    if self[rook.pos_x + i * g][rook.pos_y + i * g].figure.color == rook.color:
+                        moves.append((rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g))
+                    break
+                moves.append((rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g))
+                g += 1
         return set(moves)
 
     # возможные ходы ферзя
 
     def possible_move_queen(self, queen: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
-        # код Богдана
+        xy: list[tuple[int, int]] = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+        for i, j in xy:
+            g = 0
+            while 0 <= queen.pos_x + i * g <= 7 and 0 <= queen.pos_y + j * g <= 7:
+                if self[queen.pos_x + i * g][queen.pos_y + i * g].figure is not None:
+                    if self[queen.pos_x + i * g][queen.pos_y + i * g].figure.color == queen.color:
+                        moves.append((queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g))
+                    break
+                moves.append((queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g))
+                g += 1
         return set(moves)
 
     # проверка на шах
@@ -233,7 +260,7 @@ class Points:
 
     # функия возможных ходов с учетом шахов
 
-       def possible_moves_white(self) -> set[tuple[str, int, int, int, int]]:
+    def possible_moves_white(self) -> set[tuple[str, int, int, int, int]]:
         possible_moves = list()
         for cand in self.move_white():
             _after_move = Points(self.points.copy(), 'w')
@@ -241,7 +268,6 @@ class Points:
             if not _after_move.is_check('w'):
                 possible_moves.append(cand)
         return set(possible_moves)
-
 
     # функия возможных ходов с учетом шахов
 
