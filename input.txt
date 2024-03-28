@@ -1,0 +1,8 @@
+Knight w 00
+Pawn w 12
+Pawn w 21
+Pawn b 13
+Pawn b 22
+King w 55
+King b 72
+Pawn w 01
