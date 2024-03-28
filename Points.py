@@ -233,22 +233,23 @@ class Points:
 
     # функия возможных ходов с учетом шахов
 
-    def possible_moves_white(self) -> set[tuple[str, int, int, int, int]]:
-        moves = self.move_white()
+       def possible_moves_white(self) -> set[tuple[str, int, int, int, int]]:
         possible_moves = list()
-        for cand in moves:
-            _new_Position: Points = Points(self.points, 'b')
-            if not _new_Position.is_check('w'):
+        for cand in self.move_white():
+            _after_move = Points(self.points.copy(), 'w')
+            _after_move.move_piece(cand, 'w')
+            if not _after_move.is_check('w'):
                 possible_moves.append(cand)
         return set(possible_moves)
+
 
     # функия возможных ходов с учетом шахов
 
     def possible_moves_black(self) -> set[tuple[str, int, int, int, int]]:
-        moves = self.move_black()
         possible_moves = list()
-        for cand in moves:
-            _new_Position: Points = Points(self.points, 'w')
-            if not _new_Position.is_check('b'):
+        for cand in self.move_black():
+            _after_move = Points(self.points.copy(), 'b')
+            _after_move.move_piece(cand, 'b')
+            if not _after_move.is_check('b'):
                 possible_moves.append(cand)
         return set(possible_moves)
