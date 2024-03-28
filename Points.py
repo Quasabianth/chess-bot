@@ -124,10 +124,10 @@ class Points:
         moves = list()
         xy: list[tuple[int, int]] = [(-1, -1), (1, 1), (-1, 1), (1, -1)]
         for i, j in xy:
-            g = 0
+            g = 1
             while 0 <= bishop.pos_x + i * g <= 7 and 0 <= bishop.pos_y + j * g <= 7:
-                if self[bishop.pos_x + i * g][bishop.pos_y + i * g].figure is not None:
-                    if self[bishop.pos_x + i * g][bishop.pos_y + i * g].figure.color == bishop.color:
+                if self.points[bishop.pos_x + i * g][bishop.pos_y + i * g].figure is not None:
+                    if self.points[bishop.pos_x + i * g][bishop.pos_y + i * g].figure.color == bishop.color:
                         moves.append((bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g))
                     break
                 moves.append((bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g))
@@ -140,10 +140,10 @@ class Points:
         moves = list()
         xy: list[tuple[int, int]] = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         for i, j in xy:
-            g = 0
+            g = 1
             while 0 <= rook.pos_x + i * g <= 7 and 0 <= rook.pos_y + j * g <= 7:
-                if self[rook.pos_x + i * g][rook.pos_y + i * g].figure is not None:
-                    if self[rook.pos_x + i * g][rook.pos_y + i * g].figure.color == rook.color:
+                if self.points[rook.pos_x + i * g][rook.pos_y + i * g].figure is not None:
+                    if self.points[rook.pos_x + i * g][rook.pos_y + i * g].figure.color == rook.color:
                         moves.append((rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g))
                     break
                 moves.append((rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g))
@@ -156,10 +156,10 @@ class Points:
         moves = list()
         xy: list[tuple[int, int]] = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         for i, j in xy:
-            g = 0
+            g = 1
             while 0 <= queen.pos_x + i * g <= 7 and 0 <= queen.pos_y + j * g <= 7:
-                if self[queen.pos_x + i * g][queen.pos_y + i * g].figure is not None:
-                    if self[queen.pos_x + i * g][queen.pos_y + i * g].figure.color == queen.color:
+                if self.points[queen.pos_x + i * g][queen.pos_y + i * g].figure is not None:
+                    if self.points[queen.pos_x + i * g][queen.pos_y + i * g].figure.color == queen.color:
                         moves.append((queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g))
                     break
                 moves.append((queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g))
