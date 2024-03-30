@@ -56,32 +56,48 @@ class Points:
         moves = list()
         if pawn.color == 'w':
             if self.points[pawn.pos_x][pawn.pos_y + 1].figure is None:
-                moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 1))
+                moves.append(
+                    (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 1)
+                )
                 if pawn.pos_y == 1:
                     if self.points[pawn.pos_x][pawn.pos_y + 2].figure is None:
-                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 2))
+                        moves.append(
+                            (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 2)
+                        )
             if 0 <= pawn.pos_x <= 6:
                 if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y + 1].figure.color != pawn.color:
-                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y + 1))
+                        moves.append(
+                            (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y + 1)
+                        )
             if 1 <= pawn.pos_x <= 7:
                 if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y + 1].figure.color != pawn.color:
-                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1))
+                        moves.append(
+                            (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1)
+                        )
         elif pawn.color == 'b':
             if self.points[pawn.pos_x][pawn.pos_y - 1].figure is None:
-                moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 1))
+                moves.append(
+                    (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 1)
+                )
                 if pawn.pos_y == 6:
                     if self.points[pawn.pos_x][pawn.pos_y - 2].figure is None:
-                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 2))
+                        moves.append(
+                            (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 2)
+                        )
             if 0 <= pawn.pos_x <= 7:
                 if self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure is not None:
                     if self.points[pawn.pos_x + 1][pawn.pos_y - 1].figure.color != pawn.color:
-                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y - 1))
+                        moves.append(
+                            (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x + 1, pawn.pos_y - 1)
+                        )
             if 1 <= pawn.pos_x <= 7:
                 if self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure is not None:
                     if self.points[pawn.pos_x - 1][pawn.pos_y - 1].figure.color != pawn.color:
-                        moves.append((pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y - 1))
+                        moves.append(
+                            (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y - 1)
+                        )
         else:
             raise NotImplemented
         return set(moves)
@@ -98,9 +114,13 @@ class Points:
                     continue
                 if self.points[king.pos_x + i][king.pos_y + j].figure is not None:
                     if self.points[king.pos_x + i][king.pos_y + j].figure.color != king.color:
-                        moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
+                        moves.append(
+                            (king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j)
+                        )
                 else:
-                    moves.append((king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j))
+                    moves.append(
+                        (king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j)
+                    )
         return set(moves)
 
     # возможные ходы коня
@@ -113,9 +133,13 @@ class Points:
                 continue
             if self.points[knight.pos_x + i][knight.pos_y + j].figure is not None:
                 if self.points[knight.pos_x + i][knight.pos_y + j].figure.color != knight.color:
-                    moves.append((knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j))
+                    moves.append(
+                        (knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j)
+                    )
             else:
-                moves.append((knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j))
+                moves.append(
+                    (knight.identifier, knight.pos_x, knight.pos_y, knight.pos_x + i, knight.pos_y + j)
+                )
         return set(moves)
 
     # возможные ходы слона
@@ -128,9 +152,13 @@ class Points:
             while 0 <= bishop.pos_x + i * g <= 7 and 0 <= bishop.pos_y + j * g <= 7:
                 if self.points[bishop.pos_x + i * g][bishop.pos_y + i * g].figure is not None:
                     if self.points[bishop.pos_x + i * g][bishop.pos_y + i * g].figure.color == bishop.color:
-                        moves.append((bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g))
+                        moves.append(
+                            (bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g)
+                        )
                     break
-                moves.append((bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g))
+                moves.append(
+                    (bishop.identifier, bishop.pos_x, bishop.pos_y, bishop.pos_x + i * g, bishop.pos_y + i * g)
+                )
                 g += 1
         return set(moves)
 
@@ -144,9 +172,13 @@ class Points:
             while 0 <= rook.pos_x + i * g <= 7 and 0 <= rook.pos_y + j * g <= 7:
                 if self.points[rook.pos_x + i * g][rook.pos_y + i * g].figure is not None:
                     if self.points[rook.pos_x + i * g][rook.pos_y + i * g].figure.color == rook.color:
-                        moves.append((rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g))
+                        moves.append(
+                            (rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g)
+                        )
                     break
-                moves.append((rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g))
+                moves.append(
+                    (rook.identifier, rook.pos_x, rook.pos_y, rook.pos_x + i * g, rook.pos_y + i * g)
+                )
                 g += 1
         return set(moves)
 
@@ -160,9 +192,13 @@ class Points:
             while 0 <= queen.pos_x + i * g <= 7 and 0 <= queen.pos_y + j * g <= 7:
                 if self.points[queen.pos_x + i * g][queen.pos_y + i * g].figure is not None:
                     if self.points[queen.pos_x + i * g][queen.pos_y + i * g].figure.color == queen.color:
-                        moves.append((queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g))
+                        moves.append(
+                            (queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g)
+                        )
                     break
-                moves.append((queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g))
+                moves.append(
+                    (queen.identifier, queen.pos_x, queen.pos_y, queen.pos_x + i * g, queen.pos_y + i * g)
+                )
                 g += 1
         return set(moves)
 
