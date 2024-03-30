@@ -279,3 +279,8 @@ class Points:
             if not _after_move.is_check('b'):
                 possible_moves.append(cand)
         return set(possible_moves)
+
+    # функция удаления фигуры
+    
+    def delete(self, x, y) -> None:
+        self.points[x][y].figure = None
