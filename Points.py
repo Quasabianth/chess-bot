@@ -5,9 +5,16 @@ import Point
 
 
 class Points:
-    def __init__(self, points: list[list[Point.Point]], order: str):
+    def __init__(self, points: list[list[Point.Point]], order: str, last_move: tuple[str, int, int, int, int] | None,
+                 white_long_castling: bool = True, white_short_castling: bool = True, black_long_castling: bool = True,
+                 black_short_castling: bool = True):
         self.points = points
         self.order = order
+        self.last_move = last_move
+        self.white_long_castling = white_long_castling
+        self.white_short_castling = white_short_castling
+        self.black_long_castling = black_long_castling
+        self.black_short_castling = black_short_castling
 
     # получить все белые фигуры
 
