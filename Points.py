@@ -1,6 +1,7 @@
 import Figure
 import Point
 
+
 # класс поля (клеток)
 
 
@@ -28,7 +29,7 @@ class Points:
                         figures.append(cand.figure)
         return figures
 
-     # получить все черные фигуры
+    # получить все черные фигуры
 
     def get_black(self) -> list[Figure.Figure]:
         figures = []
@@ -306,7 +307,9 @@ class Points:
     def possible_moves_white(self) -> set[tuple[str, int, int, int, int]]:
         possible_moves = list()
         for cand in self.move_white():
-            _after_move = Points(self.points.copy(), 'w')
+            _after_move = Points(self.points.copy(), 'w', cand, 
+                                 self.white_long_castling, self.white_short_castling, 
+                                 self.black_long_castling, self.black_short_castling)
             _after_move.move_piece(cand, 'w')
             if not _after_move.is_check('w'):
                 possible_moves.append(cand)
@@ -317,13 +320,15 @@ class Points:
     def possible_moves_black(self) -> set[tuple[str, int, int, int, int]]:
         possible_moves = list()
         for cand in self.move_black():
-            _after_move = Points(self.points.copy(), 'b')
+            _after_move = Points(self.points.copy(), 'b', cand, 
+                                 self.white_long_castling, self.white_short_castling, 
+                                 self.black_long_castling, self.black_short_castling)
             _after_move.move_piece(cand, 'b')
             if not _after_move.is_check('b'):
                 possible_moves.append(cand)
         return set(possible_moves)
 
     # функция удаления фигуры
-    
+
     def delete(self, x, y) -> None:
         self.points[x][y].figure = None
