@@ -301,9 +301,13 @@ class Points:
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
         elif identifier == "En passant white":
-            pass
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
+            self.points[to_x][from_y].figure = None
         elif identifier == "En passant black":
-            pass
+            self.points[from_x][from_y].figure = None
+            self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
+            self.points[to_x][from_y].figure = None
         elif identifier == "King":
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.King(color, to_x, to_y)
