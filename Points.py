@@ -121,7 +121,6 @@ class Points:
         return set(moves)
 
     # возможные ходы короля
-
     def possible_move_king(self, king: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         for i in [-1, 0, 1]:
@@ -139,7 +138,34 @@ class Points:
                     moves.append(
                         (king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j)
                     )
-        return set(moves)
+        if not self.is_check(king.color):
+            if king.color == "w":
+                if (self.white_long_castling and self[3][0].figure is None and self[2][0].figure is None
+                        and self[1][0].figure is None and not self.is_check("w", 2, 0)
+                        and not self.is_check("w", 3, 0)):
+                    moves.append(
+                        ("White long castling", king.pos_x, king.pos_y, 2, 0)
+                    )
+                if (self.white_short_castling and self[5][0].figure is None and self[6][0].figure is None
+                        and not self.is_check("w", 5, 0) and not self.is_check("w", 6, 0)):
+                    moves.append(
+                        ("White short castling", king.pos_x, king.pos_y, 6, 0)
+                    )
+            elif king.color == "b":
+                if (self.black_long_castling and self[3][7].figure is None and self[2][7].figure is None
+                        and self[1][7].figure is None and not self.is_check("b", 2, 7)
+                        and not self.is_check("b", 3, 7)):
+                    moves.append(
+                        ("Black long castling", king.pos_x, king.pos_y, 2, 7)
+                    )
+                if (self.black_short_castling and self[5][7].figure is None and self[6][7].figure is None
+                        and not self.is_check("b", 5, 7) and not self.is_check("b", 6, 7)):
+                    moves.append(
+                        ("Black short castling", king.pos_x, king.pos_y, 6, 7)
+                    )
+            else:
+                raise NotImplemented("Блять, а где цвет короля?")
+            return set(moves)
 
     # возможные ходы коня
 
