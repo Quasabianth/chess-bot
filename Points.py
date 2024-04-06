@@ -63,6 +63,11 @@ class Points:
     def possible_move_pawn(self, pawn: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
         moves = list()
         if pawn.color == 'w':
+            if self.last_move[0] == "Pawn" and abs(self.last_move[2] - self.last_move[4]) == 2:
+                if abs(pawn.pos_x - self.last_move[1]) == 1:
+                    moves.append(
+                        ("En passant white", pawn.pos_x, pawn.pos_y, self.last_move[1], pawn.pos_y + 1)
+                    )
             if self.points[pawn.pos_x][pawn.pos_y + 1].figure is None:
                 moves.append(
                     (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y + 1)
@@ -85,6 +90,11 @@ class Points:
                             (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x - 1, pawn.pos_y + 1)
                         )
         elif pawn.color == 'b':
+            if self.last_move[0] == "Pawn" and abs(self.last_move[2] - self.last_move[4]) == 2:
+                if abs(pawn.pos_x - self.last_move[1]) == 1:
+                    moves.append(
+                        ("En passant black", pawn.pos_x, pawn.pos_y, self.last_move[1], pawn.pos_y - 1)
+                    )
             if self.points[pawn.pos_x][pawn.pos_y - 1].figure is None:
                 moves.append(
                     (pawn.identifier, pawn.pos_x, pawn.pos_y, pawn.pos_x, pawn.pos_y - 1)
@@ -212,19 +222,25 @@ class Points:
 
     # проверка на шах
 
-    def is_check(self, order: str) -> bool:
+    def is_check(self, order: str, x: int | None = None, y: int | None = None) -> bool:
         flag = False
         if order == 'w':
-            king = self.get_white_king()[0]
-            pos_x, pos_y = king.pos_x, king.pos_y
+            if x and y:
+                pos_x, pos_y = x, y
+            else:
+                king = self.get_white_king()[0]
+                pos_x, pos_y = king.pos_x, king.pos_y
             for cand in self.move_black():
                 x, y = cand[3], cand[4]
                 if pos_x == x and pos_y == y:
                     flag = True
                     break
         elif order == 'b':
-            king = self.get_black_king()[0]
-            pos_x, pos_y = king.pos_x, king.pos_y
+            if x and y:
+                pos_x, pos_y = x, y
+            else:
+                king = self.get_black_king()[0]
+                pos_x, pos_y = king.pos_x, king.pos_y
             for cand in self.move_white():
                 x, y = cand[3], cand[4]
                 if pos_x == x and pos_y == y:
@@ -284,9 +300,21 @@ class Points:
         if identifier == "Pawn":
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
+        elif identifier == "En passant white":
+            pass
+        elif identifier == "En passant black":
+            pass
         elif identifier == "King":
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.King(color, to_x, to_y)
+            if color == "w":
+                self.white_long_castling = False
+                self.white_short_castling = False
+            elif color == "b":
+                self.black_long_castling = False
+                self.black_short_castling = False
+            else:
+                raise NotImplemented("Блять, а где цвет короля?")
         elif identifier == "Knight":
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Knight(color, to_x, to_y)
@@ -296,19 +324,31 @@ class Points:
         elif identifier == "Rook":
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Rook(color, to_x, to_y)
+            if color == "w":
+                if from_x == 0 and from_y == 0:
+                    self.white_long_castling = False
+                elif from_x == 7 and from_y == 0:
+                    self.white_short_castling = False
+            elif color == "b":
+                if from_x == 7 and from_y == 7:
+                    self.black_long_castling = False
+                elif from_x == 0 and from_y == 7:
+                    self.black_long_castling = False
+            else:
+                raise NotImplemented("Блять, а где цвет короля?")
         elif identifier == "Queen":
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Queen(color, to_x, to_y)
         else:
-            raise NotImplemented
+            raise NotImplemented("Блять, а что это за фигура?")
 
     # функия возможных ходов с учетом шахов
 
     def possible_moves_white(self) -> set[tuple[str, int, int, int, int]]:
         possible_moves = list()
         for cand in self.move_white():
-            _after_move = Points(self.points.copy(), 'w', cand, 
-                                 self.white_long_castling, self.white_short_castling, 
+            _after_move = Points(self.points.copy(), 'w', cand,
+                                 self.white_long_castling, self.white_short_castling,
                                  self.black_long_castling, self.black_short_castling)
             _after_move.move_piece(cand, 'w')
             if not _after_move.is_check('w'):
@@ -320,8 +360,8 @@ class Points:
     def possible_moves_black(self) -> set[tuple[str, int, int, int, int]]:
         possible_moves = list()
         for cand in self.move_black():
-            _after_move = Points(self.points.copy(), 'b', cand, 
-                                 self.white_long_castling, self.white_short_castling, 
+            _after_move = Points(self.points.copy(), 'b', cand,
+                                 self.white_long_castling, self.white_short_castling,
                                  self.black_long_castling, self.black_short_castling)
             _after_move.move_piece(cand, 'b')
             if not _after_move.is_check('b'):
