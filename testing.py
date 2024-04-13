@@ -6,6 +6,9 @@ import Figure
 def start_game(list_of_points: list[list[Point.Point]]):
     with open('input.txt') as input_file:
         inp = input_file.readline().rstrip()
+        inp = input_file.readline().rstrip()
+        inp = input_file.readline().rstrip()
+        inp = input_file.readline().rstrip()
         while inp:
             name, color, pos = map(str, inp.split())
             pos_x, pos_y = int(pos[0]), int(pos[1])
@@ -29,8 +32,15 @@ def start_game(list_of_points: list[list[Point.Point]]):
 
 
 points = [[Point.Point(x, y, None) for x in range(0, 8)] for y in range(0, 8)]
-start_game(points)
-position = Points.Points(points, 'w')
 
+with open('input.txt') as input_file:
+    inp = input_file.readline().rstrip()
+    if inp == "last_move":
+        inp = input_file.readline().rstrip()
+        name, color, fro, to = map(str, inp.split())
+        pos_x, pos_y = int(fro[0]), int(fro[1])
+        position = Points.Points(points, 'w', (name, int(fro[0]), int(fro[0]), int(to[0]), int(to[0])))
+        inp = input_file.readline().rstrip()
+start_game(points)
 moves = position.move_white()
 print(moves)
