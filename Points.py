@@ -433,4 +433,4 @@ class Points:
                     moves.append(
                         (king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j)
                     )
-        return moves
+        return set(moves)
