@@ -284,7 +284,7 @@ class Points:
                 case Figure.Pawn:
                     moves += self.possible_move_pawn(figure)
                 case Figure.King:
-                    moves += self.possible_move_king(figure)
+                    moves += self.attacked_cells_king(figure)
                 case Figure.Knight:
                     moves += self.possible_move_knight(figure)
                 case Figure.Bishop:
@@ -321,7 +321,7 @@ class Points:
 
     # функция, которая передвигает фигуры
 
-    def move_piece(self, move: tuple[str, int, int, int, int], color) -> None:
+    def move_piece(self, move: tuple[str, int, int, int, int], color, figure: str | None = None) -> None:
         identifier, from_x, from_y, to_x, to_y = move
         if identifier == "Pawn":
             self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
@@ -338,6 +338,8 @@ class Points:
                     raise NotImplemented("Введи название фигуры")
                 else:
                     raise NotImplemented("Неверное название фигуры")
+            self.points[from_x][from_y].figure = None
+        elif identifier == "En passant white":
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
             self.points[to_x][from_y].figure = None
@@ -413,3 +415,22 @@ class Points:
 
     def delete(self, x, y) -> None:
         self.points[x][y].figure = None
+
+    def attacked_cells_king(self, king: Figure.Figure) -> set[tuple[str, int, int, int, int]]:
+        moves = list()
+        for i in [-1, 0, 1]:
+            for j in [-1, 0, 1]:
+                if not (0 <= king.pos_x + i <= 7) or not (0 <= king.pos_y + j <= 7):
+                    continue
+                if i == 0 and j == 0:
+                    continue
+                if self.points[king.pos_x + i][king.pos_y + j].figure is not None:
+                    if self.points[king.pos_x + i][king.pos_y + j].figure.color != king.color:
+                        moves.append(
+                            (king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j)
+                        )
+                else:
+                    moves.append(
+                        (king.identifier, king.pos_x, king.pos_y, king.pos_x + i, king.pos_y + j)
+                    )
+        return moves
