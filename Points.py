@@ -324,9 +324,20 @@ class Points:
     def move_piece(self, move: tuple[str, int, int, int, int], color) -> None:
         identifier, from_x, from_y, to_x, to_y = move
         if identifier == "Pawn":
-            self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
-        elif identifier == "En passant white":
+            if (color == "w" and to_y == 7) or (color == "b" and to_y == 0):
+                if figure == "Rook":
+                    self.points[to_x][to_y] = Figure.Rook(color, to_x, to_y)
+                elif figure == "Bishop":
+                    self.points[to_x][to_y] = Figure.Bishop(color, to_x, to_y)
+                elif figure == "Knight":
+                    self.points[to_x][to_y] = Figure.Knight(color, to_x, to_y)
+                elif figure == "Queen":
+                    self.points[to_x][to_y] = Figure.Queen(color, to_x, to_y)
+                elif figure is None:
+                    raise NotImplemented("Введи название фигуры")
+                else:
+                    raise NotImplemented("Неверное название фигуры")
             self.points[from_x][from_y].figure = None
             self.points[to_x][to_y].figure = Figure.Pawn(color, to_x, to_y)
             self.points[to_x][from_y].figure = None
